@@ -28,7 +28,7 @@ router.post('/users/login', async (req, res) => {
 router.post('/users/logout',auth, async(req,res) => {
     try {
         req.user.tokens = req.user.tokens.filter((token) => {
-            return token.token !== req.token
+            return token.token !== req.token            //if false it will filter out and keep it safe in tokens, if true it will not filter it and hence remove that token (comaparable to logout from specific devices)
         })
         await req.user.save()
         res.send()

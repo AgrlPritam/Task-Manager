@@ -50,6 +50,14 @@ const userSchema = new mongoose.Schema({
     }]
 })
 
+//To use a virtual reference to tasks created by user(Not originally storing tasks created in user schema as we have task schema)
+userSchema.virtual('tasks',{
+    ref:'Task',
+    localField:'_id',       //local data is stored. Owner object id in the task which is associated with _id of the user here
+    foreignField:'owner'    //name of the field on task model where relationship needs to be established
+})
+
+
 //To remove unnecessary data like password and tokens
 userSchema.methods.toJSON =  function () {
     const user = this
