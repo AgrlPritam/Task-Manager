@@ -49,6 +49,8 @@ const userSchema = new mongoose.Schema({
             required: true
         }
     }]
+},{
+    timestamps:true
 })
 
 //To use a virtual reference to tasks created by user(Not originally storing tasks created in user schema as we have task schema)
