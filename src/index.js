@@ -4,9 +4,37 @@ require('./db/mongoose')
 const userRouter = require('./routers/user')
 const taskRouter = require('./routers/task')
 
+
 const app = express()
 const port = process.env.PORT || 3000
 
+// const multer = require('multer')
+
+// Handling File Upload using Multer
+// const upload = multer({
+//     dest:'images',
+//     limits:{
+//         fileSize: 1000000
+//     },
+//     fileFilter(req, file, cb) {
+//         if (!file.originalname.match(/\.(doc|docx)$/)) {        //refer regex101.com for testing regular expressions
+//             return cb(new Error('Please upload a Word Document'))
+//         }
+
+//         cb(undefined, true)
+        // cb(new Error('File must be a PDF'))  //Error message sent back
+        // cb(undefined, true)                  //Accept the upload
+        // cb(undefined, false)                 //Silently reject the upload
+//     }
+// })
+
+// app.post('/upload',upload.single('upload'), (req,res) => {
+//     res.send()
+// },(error, req, res, next) => {
+//     res.status(400).send({ error:error.message })
+// })
+
+/***************************************************************/
 // app.use((req, res, next) => {
 //     if (req.method === 'GET') {
 //         res.send('GET requests are disabled')

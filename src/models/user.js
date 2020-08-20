@@ -48,7 +48,10 @@ const userSchema = new mongoose.Schema({
             type: String,
             required: true
         }
-    }]
+    }],
+    avatar:{
+        type: Buffer
+    }
 },{
     timestamps:true
 })
@@ -61,13 +64,14 @@ userSchema.virtual('tasks',{
 })
 
 
-//To remove unnecessary data like password and tokens
+//To remove unnecessary data like password and tokens from profile response in read profile API in postman
 userSchema.methods.toJSON =  function () {
     const user = this
     const userObject = user.toObject()
 
     delete userObject.password
     delete userObject.tokens
+    delete userObject.avatar
     return userObject
 }
 
