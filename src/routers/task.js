@@ -21,12 +21,18 @@ router.post('/tasks',auth, async (req, res) => {
 //Get /tasks?completed=true
 //Pagination --> Get /tasks?limit=2&skip=2  This sets the limit of two result and skip first 2 result for the page. So it fetches third and fourth task from db
 //similarly limit=3&skip=3 will fetch fourth,fifth,sixth tasks from db
+//Sorting --> Get /tasks?sortBy=createdAt:asc for ascending or createdAt:desc for descending
 router.get('/tasks',auth, async (req, res) => {
     const match = {}
-
+    const sort = {}
     if(req.query.completed){
         match.completed = req.query.completed === 'true'        //The endpoint true in url is string type but we want to store boolean true
 
+    }
+
+    if(req.query.sortBy) {
+        const parts = req.query.sortBy.split(':')
+        sort[parts[0]] = parts[1] === 'desc' ? -1 : 1   //sort[parts[0]] picks the first half of endpoint, createdAt here (can be completed or other params from schema) and parts[1] has second half whether asc or desc
     }
     try {
         //const tasks = await Task.find({})
@@ -36,7 +42,8 @@ router.get('/tasks',auth, async (req, res) => {
             match,
             options:{
                 limit: +req.query.limit,
-                skip: +req.query.skip
+                skip: +req.query.skip,
+                sort
             }
         }).execPopulate()
         res.send(req.user.tasks)
