@@ -1,4 +1,5 @@
 const {fahrenheitToCelsius, celsiusToFahrenheit, add } = require('../src/math')
+const { request } = require('express')
 
 test('Should convert 32F to 0 C', () => {
     const celsius = fahrenheitToCelsius(32)
@@ -38,4 +39,3 @@ test('Adding two numbers async/await', async () => {
     const sum = await add(10,2)
     expect(sum).toBe(12)
 })
-
